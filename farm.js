@@ -17,15 +17,13 @@ const getYieldForCrop = (object) => {
 console.log(resultArray.reduce(reducer)); 
  */
 
-
-
-
-
 const getTotalYield = (object) => {
-  //Functie Test 3!
-  let crop1 = object.crops[0].crop.yield * object.crops[0].numCrops;
-  let crop2 = object.crops[1].crop.yield * object.crops[1].numCrops;
-  return crop1 + crop2;
+  //Functie Test 3!  
+  let totalYield = 0;
+  for (i = 0; i < object.crops.length; i++) {
+    totalYield = totalYield + (object.crops[i].crop.yield * object.crops[i].numCrops);
+  }
+  return totalYield;
 };
 
 
