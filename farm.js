@@ -1,4 +1,12 @@
-const getYieldForPlant = (object) => (object.name, object.yield);
+const getYieldForPlant = (object) => {
+  if (object.sun == "low") {
+    return object.crop.yield * object.crop.factors.sun.low;
+  } if (object.sun == "medium") {
+    return object.crop.yield * object.crop.factors.sun.medium;
+  } if (object.sun == "high") {
+    return object.crop.yield * object.crop.factors.sun.high;
+  } else return object.yield;
+};
 
 const getYieldForCrop = (object) => (object.crop.yield * object.numCrops);
 

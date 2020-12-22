@@ -27,8 +27,7 @@ describe("getYieldForCrop", () => {
 describe("getTotalYield", () => {
   test("Calculate total yield with multiple crops", () => {
     const corn = {
-      name: "corn",
-      yield: 3,
+      name: "corn", yield: 3,
     };
     const pumpkin = {
       name: "pumpkin",
@@ -202,4 +201,64 @@ describe("getTotalProfit", () => {
 //choose path: second path: check for (no) environment factors with the existing functions.
 
 //Test 6, total tests made: 16.
-//Zie hierboven nieuwe toegevoegde tests.
+// in addition also calculate the environment factors when caculating the yield(in kilo's) of a plant: getYieldForPlant.
+describe("getYieldForPlantWithFactors", () => {
+  test("Get yield for plant with environment factors", () => {
+    const corn = {
+      name: "corn",
+      yield: 30,
+      factors: {
+        sun: {
+          low: 0.2,
+          medium: 0,
+          high: 0.5,
+        },
+      },
+    };
+    const environmentFactors = {
+      crop: corn,
+      sun: "low",
+    };
+
+    expect(getYieldForPlant(environmentFactors)).toBe(6);
+  });
+  test("Get yield for plant with environment factors", () => {
+    const corn = {
+      name: "corn",
+      yield: 30,
+      factors: {
+        sun: {
+          low: 0.2,
+          medium: 1,
+          high: 0.5,
+        },
+      },
+    };
+    const environmentFactors = {
+      crop: corn,
+      sun: "medium",
+    };
+    expect(getYieldForPlant(environmentFactors)).toBe(30);
+  });
+  test("Get yield for plant with environment factors", () => {
+    const corn = {
+      name: "corn",
+      yield: 30,
+      factors: {
+        sun: {
+          low: 0.2,
+          medium: 0,
+          high: 1.5,
+        },
+      },
+    };
+    const environmentFactors = {
+      crop: corn,
+      sun: "high",
+    };
+    expect(getYieldForPlant(environmentFactors)).toBe(45);
+  });
+});
+
+//Test 6, total tests made: 16.
+// in addition also calculate the environment factors when caculating the yield(in kilo's) of a plant: getYieldForPlant.
