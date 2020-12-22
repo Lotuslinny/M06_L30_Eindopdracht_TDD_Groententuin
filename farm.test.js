@@ -1,6 +1,6 @@
 const { getYieldForPlant, getYieldForCrop, getTotalYield, getCostsForCrop, getRevenueForCrop, getProfitForCrop, getTotalProfit } = require("./farm");
 
-describe("getYieldForPlant", () => {
+/* describe("getYieldForPlant", () => {
   const corn = {
     name: "corn",
     yield: 30,
@@ -201,9 +201,9 @@ describe("getTotalProfit", () => {
 //choose path: second path: check for (no) environment factors with the existing functions.
 
 //Test 6, total tests made: 16.
-// in addition also calculate the environment factors when caculating the yield(in kilo's) of a plant: getYieldForPlant.
+// in addition also calculate an environment factor when caculating the yield(in kilo's) of a plant: getYieldForPlant.
 describe("getYieldForPlantWithFactors", () => {
-  test("Get yield for plant with environment factors", () => {
+  test("Get yield for plant with an environment factor", () => {
     const corn = {
       name: "corn",
       yield: 30,
@@ -221,7 +221,7 @@ describe("getYieldForPlantWithFactors", () => {
     };
     expect(getYieldForPlant(environmentFactors)).toBe(24);
   });
-  test("Get yield for plant with environment factors", () => {
+  test("Get yield for plant with an environment factor", () => {
     const corn = {
       name: "corn",
       yield: 30,
@@ -239,7 +239,7 @@ describe("getYieldForPlantWithFactors", () => {
     };
     expect(getYieldForPlant(environmentFactors)).toBe(30);
   });
-  test("Get yield for plant with environment factors", () => {
+  test("Get yield for plant with an environment factor", () => {
     const corn = {
       name: "corn",
       yield: 30,
@@ -257,7 +257,63 @@ describe("getYieldForPlantWithFactors", () => {
     };
     expect(getYieldForPlant(environmentFactors)).toBe(45);
   });
-});
+}); */
 
-//Test 6, total tests made: 16.
-// in addition also calculate the environment factors when caculating the yield(in kilo's) of a plant: getYieldForPlant.
+//Test 7, total tests made: 19.
+//also calculate all the environment factors when caculating the yield(in kilo's) of a plant: getYieldForPlant.
+describe("getYieldForPlantWithFactors", () => {
+  test("Get yield for plant with environment factors", () => {
+    const corn = {
+      name: "corn",
+      yield: 30,
+      factors: {
+        sun: {
+          low: 0.8,
+          medium: 0,
+          high: 0.5,
+        },
+        wind: {
+          low: 1,
+          medium: 0.7,
+          high: 0.4,
+        },
+      },
+    };
+    const environmentFactors = {
+      crop: corn,
+      sun: "low",
+      wind: "low"
+    };
+    expect(getYieldForPlant(environmentFactors)).toBe(24);
+  });
+  test("Get yield for plant with environment factors", () => {
+    const corn = {
+      name: "corn",
+      yield: 30,
+      factors: {
+        sun: {
+          low: 0.8,
+          medium: 0,
+          high: 0.5,
+        },
+        wind: {
+          low: 1,
+          medium: 0.7,
+          high: 0.4,
+        },
+        soilClay: {
+          low: 1,
+          medium: 0.6,
+          high: 0.2,
+        },
+      },
+    };
+    const environmentFactors = {
+      crop: corn,
+      sun: "low",
+      wind: "high",
+      soilClay: "medium"
+    };
+    expect(getYieldForPlant(environmentFactors)).toBe(5.76);
+  });
+}); 
