@@ -1,4 +1,4 @@
-const { getYieldForPlant, getYieldForCrop, getTotalYield, getCostsForCrop } = require("./farm");
+const { getYieldForPlant, getYieldForCrop, getTotalYield, getCostsForCrop, getRevenueForCrop } = require("./farm");
 
 describe("getYieldForPlant", () => {
   const corn = {
@@ -51,7 +51,7 @@ describe("getTotalYield", () => {
   });
 });
 
-//Test 1, total tests: 5.
+//Test 1, total tests made: 4.
 //calculate the costs for a crop:getCostsForCrop.
 describe("getCostsForCrop", () => {
   test("Get costs for crop, simple", () => {
@@ -77,15 +77,46 @@ describe("getCostsForCrop", () => {
     expect(getCostsForCrop(input)).toBe(45);
   });
   test("Get costs for crop, simple", () => {
-    const avocado = {
-      name: "avocado",
+    const avocados = {
+      name: "avocados",
       costs: 2,
     };
     const input = {
-      crop: avocado,
+      crop: avocados,
       numCrops: 20,
     };
     expect(getCostsForCrop(input)).toBe(40);
   });
 });
 
+//Test 2, total tests made: 7.
+//calculate revenue of a crop (without environment factors): getRevenueForCrop
+describe("getRevenueForCrop", () => {
+  test("Get revenue for crop, simple", () => {
+    const corn = {
+      name: "corn",
+      revenue: 2,
+    };
+    const input = {
+      crop: corn,
+      numCrops: 24,
+    };
+    expect(getRevenueForCrop(input)).toBe(48);
+  });
+  test("Get revenue for crop, simple", () => {
+    const apples = {
+      name: "apples",
+      revenue: 2.5,
+    };
+    const input = { crop: apples, numCrops: 100 };
+    expect(getRevenueForCrop(input)).not.toBe(200);
+  });
+  test("Get revenue for crop, simple", () => {
+    const tomatoes = {
+      name: "tomatoes",
+      revenue: 2,
+    };
+    const input = { crop: tomatoes, numCrops: 75 };
+    expect(getRevenueForCrop(input)).toBe(150);
+  });
+}); 
