@@ -14,11 +14,13 @@ const getCostsForCrop = (object) => (object.crop.costs * object.numCrops);
 
 const getRevenueForCrop = (object) => (object.crop.revenue * object.numCrops);
 
+const getProfitForCrop = (object) => (object.crop.profit * object.numCrops);
 
 module.exports = {
   getYieldForPlant,
   getYieldForCrop,
   getTotalYield,
   getCostsForCrop,
-  getRevenueForCrop
+  getRevenueForCrop,
+  getProfitForCrop
 };

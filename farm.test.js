@@ -1,4 +1,4 @@
-const { getYieldForPlant, getYieldForCrop, getTotalYield, getCostsForCrop, getRevenueForCrop } = require("./farm");
+const { getYieldForPlant, getYieldForCrop, getTotalYield, getCostsForCrop, getRevenueForCrop, getProfitForCrop } = require("./farm");
 
 describe("getYieldForPlant", () => {
   const corn = {
@@ -119,4 +119,39 @@ describe("getRevenueForCrop", () => {
     const input = { crop: tomatoes, numCrops: 75 };
     expect(getRevenueForCrop(input)).toBe(150);
   });
-}); 
+});
+
+//Test 3, total tests made: 10.
+//caculate the profit of a crop (without environment factors): getProfitForCrop
+describe("getProfitForCrop", () => {
+  test("Get profit for crop, simple", () => {
+    const pumpkin = {
+      name: "pumpkin",
+      profit: 4,
+    };
+    const input = {
+      crop: pumpkin,
+      numCrops: 33,
+    };
+    expect(getProfitForCrop(input)).toBe(132);
+  });
+  test("Get profit for crop, simple", () => {
+    const apples = {
+      name: "apples",
+      profit: 1,
+    };
+    const input = { crop: apples, numCrops: 100 };
+    expect(getProfitForCrop(input)).not.toBe(1000);
+  });
+  test("Get profit for crop, simple", () => {
+    const tomatoes = {
+      name: "tomatoes",
+      profit: 0.25,
+    };
+    const input = { crop: tomatoes, numCrops: 320 };
+    expect(getProfitForCrop(input)).toBe(80);
+  });
+});
+
+//Test 4, total tests made: 13.
+//calculate the profit of multiple crops (without environment factors): getTotalProfit
