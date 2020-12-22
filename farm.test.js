@@ -1,11 +1,10 @@
-const { getYieldForPlant, getYieldForCrop, getTotalYield, getCostsForCrop, getRevenueForCrop, getProfitForCrop } = require("./farm");
+const { getYieldForPlant, getYieldForCrop, getTotalYield, getCostsForCrop, getRevenueForCrop, getProfitForCrop, getTotalProfit } = require("./farm");
 
 describe("getYieldForPlant", () => {
   const corn = {
     name: "corn",
     yield: 30,
   };
-
   test("Get yield for plant with no environment factors", () => {
     expect(getYieldForPlant(corn)).toBe(30);
   });
@@ -103,7 +102,7 @@ describe("getRevenueForCrop", () => {
     };
     expect(getRevenueForCrop(input)).toBe(48);
   });
-  test("Get revenue for crop, simple", () => {
+  test("Get revenue for crop, simple with not.toBe", () => {
     const apples = {
       name: "apples",
       revenue: 2.5,
@@ -135,7 +134,7 @@ describe("getProfitForCrop", () => {
     };
     expect(getProfitForCrop(input)).toBe(132);
   });
-  test("Get profit for crop, simple", () => {
+  test("Get profit for crop, simple with not.toBe", () => {
     const apples = {
       name: "apples",
       profit: 1,
@@ -155,3 +154,52 @@ describe("getProfitForCrop", () => {
 
 //Test 4, total tests made: 13.
 //calculate the profit of multiple crops (without environment factors): getTotalProfit
+describe("getTotalProfit", () => {
+  test("Calculate total profit with multiple crops", () => {
+    const corn = {
+      name: "corn",
+      profit: 2,
+    };
+    const apples = {
+      name: "apples",
+      profit: 0.25,
+    };
+    const tomatoes = {
+      name: "tomatoes",
+      profit: 0.33,
+    };
+    const pumpkin = {
+      name: "pumpkin",
+      profit: 4,
+    };
+    const crops = [
+      { crop: corn, numCrops: 100 },
+      { crop: apples, numCrops: 80 },
+      { crop: tomatoes, numCrops: 100 },
+      { crop: pumpkin, numCrops: 2 },
+    ];
+    expect(getTotalProfit({ crops })).toBe(261);
+  });
+  test("Calculate total profit with 0 amount", () => {
+    const corn = {
+      name: "corn",
+      profit: 1,
+    };
+    const crops = [{ crop: corn, numCrops: 0 }];
+    expect(getTotalProfit({ crops })).toBe(0);
+  });
+  test("Calculate total profit with a string", () => {
+    const pumpkin = {
+      name: "pumpkin",
+      profit: "2",
+    };
+    const crops = [{ crop: pumpkin, numCrops: 10 }];
+    expect(getTotalProfit({ crops })).toStrictEqual(20);
+  });
+});
+
+//Test 5, total tests made: 16.
+//choose path: second path: check for (no) environment factors with the existing functions.
+
+//Test 6, total tests made: 16.
+//Zie hierboven nieuwe toegevoegde tests.
