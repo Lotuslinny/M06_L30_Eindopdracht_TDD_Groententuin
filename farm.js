@@ -1,35 +1,35 @@
 const getYieldForPlant = (object) => {
-  console.log("sun: " + object.sun);
-  console.log("wind: " + object.wind);
-  console.log("soilClay: " + object.soilClay);
-
-  let o = object.crop.factors;
-  let sunFactor = 0;
-  for (var prop in o.sun) {
-    if (prop == object.sun) {
-      sunFactor = o.sun[prop];
-      break;
-    }
+  let soilClayFactor = 1;
+  let sunFactor = 1;
+  let windFactor = 1;
+  if (typeof object.crop != "undefined") {
+    let o = object.crop.factors;
+    if (typeof o.sun !== 'undefined') {
+      let o = object.crop.factors;
+      for (var prop in o.sun) {
+        if (prop == object.sun) {
+          sunFactor = o.sun[prop];
+        }
+      }
+    };
+    if (typeof o.wind !== 'undefined') {
+      for (var prop in o.wind) {
+        if (prop == object.wind) {
+          windFactor = o.wind[prop];
+        }
+      }
+    };
+    if (typeof o.soilClay !== 'undefined')
+      for (var prop in o.soilClay) {
+        if (prop == object.soilClay) {
+          soilClayFactor = o.soilClay[prop];
+        }
+      }
+    return object.crop.yield * sunFactor * windFactor * soilClayFactor;
   }
-  let windFactor = 0;
-  for (var prop in o.wind) {
-    if (prop == object.wind) {
-      windFactor = o.wind[prop];
-      break;
-    }
+  else {
+    return object.yield
   }
-  let soilClayFactor = 0;
-  for (var prop in o.soilClay) {
-    if (prop == object.soilClay) {
-      soilClayFactor = o.soilClay[prop];
-      break;
-    }
-  }
-  /*   console.log("sunFactor: " + sunFactor);
-    console.log("windFactor: " + windFactor);
-    console.log("soilClayFactor: " + soilClayFactor); */
-  return soilClayFactor * windFactor * sunFactor * object.crop.yield;
-
 };
 
 const getYieldForCrop = (object) => (object.crop.yield * object.numCrops);

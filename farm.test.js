@@ -1,6 +1,6 @@
 const { getYieldForPlant, getYieldForCrop, getTotalYield, getCostsForCrop, getRevenueForCrop, getProfitForCrop, getTotalProfit } = require("./farm");
-
-/* describe("getYieldForPlant", () => {
+//you can not use different files, because the first four functions must be in farm.js, the code that musn't be chamged demands it.
+describe("getYieldForPlant", () => {
   const corn = {
     name: "corn",
     yield: 30,
@@ -257,9 +257,9 @@ describe("getYieldForPlantWithFactors", () => {
     };
     expect(getYieldForPlant(environmentFactors)).toBe(45);
   });
-}); */
+});
 
-//Test 7, total tests made: 19.
+//Test 7,8 (the first test with description "getYieldForPlant" is written above at the beginning of the page), total tests made: 19.
 //also calculate all the environment factors when caculating the yield(in kilo's) of a plant: getYieldForPlant.
 describe("getYieldForPlantWithFactors", () => {
   test("Get yield for plant with environment factors", () => {
@@ -282,14 +282,15 @@ describe("getYieldForPlantWithFactors", () => {
     const environmentFactors = {
       crop: corn,
       sun: "low",
-      wind: "low"
+      wind: "low",
+
     };
     expect(getYieldForPlant(environmentFactors)).toBe(24);
   });
   test("Get yield for plant with environment factors", () => {
-    const corn = {
-      name: "corn",
-      yield: 30,
+    const avocados = {
+      name: "avocados",
+      yield: 50,
       factors: {
         sun: {
           low: 0.8,
@@ -302,18 +303,22 @@ describe("getYieldForPlantWithFactors", () => {
           high: 0.4,
         },
         soilClay: {
-          low: 1,
-          medium: 0.6,
-          high: 0.2,
+          low: 1.1,
+          medium: 0.7,
+          high: 0.3,
         },
       },
     };
     const environmentFactors = {
-      crop: corn,
+      crop: avocados,
       sun: "low",
-      wind: "high",
-      soilClay: "medium"
+      wind: "low",
+      soilClay: "low"
     };
-    expect(getYieldForPlant(environmentFactors)).toBe(5.76);
+    expect(getYieldForPlant(environmentFactors)).toBe(44);
   });
-}); 
+});
+
+//test 9, total tests made 21.
+// also calculate all the environment factors when caculating
+// the yield(in kilo's) of a crop, getYieldForCrop.
