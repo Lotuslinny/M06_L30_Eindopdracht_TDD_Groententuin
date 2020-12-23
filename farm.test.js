@@ -1,6 +1,6 @@
 const { getYieldForPlant, getYieldForCrop, getTotalYield, getCostsForCrop, getRevenueForCrop, getProfitForCrop, getTotalProfit } = require("./farm");
 //you can not use different files, because the first four functions must be in farm.js, the code that musn't be chamged demands it.
-describe("getYieldForPlant", () => {
+/* describe("getYieldForPlant", () => {
   const corn = {
     name: "corn",
     yield: 30,
@@ -8,7 +8,7 @@ describe("getYieldForPlant", () => {
   test("Get yield for plant with no environment factors", () => {
     expect(getYieldForPlant(corn)).toBe(30);
   });
-});
+}); */
 
 describe("getYieldForCrop", () => {
   test("Get yield for crop, simple", () => {
@@ -24,7 +24,7 @@ describe("getYieldForCrop", () => {
   });
 });
 
-describe("getTotalYield", () => {
+/* describe("getTotalYield", () => {
   test("Calculate total yield with multiple crops", () => {
     const corn = {
       name: "corn", yield: 3,
@@ -318,7 +318,40 @@ describe("getYieldForPlantWithFactors", () => {
     expect(getYieldForPlant(environmentFactors)).toBe(44);
   });
 });
-
+ */
 //test 9, total tests made 21.
 // also calculate all the environment factors when caculating
 // the yield(in kilo's) of a crop, getYieldForCrop.
+describe("getYieldForCropWithEnvironmentFactors", () => {
+  test("Get yield for crop, with environmentfactors", () => {
+    const corn = {
+      name: "corn",
+      yield: 3,
+      factors: {
+        sun: {
+          low: 0.8,
+          medium: 0,
+          high: 1.5,
+        },
+        wind: {
+          low: 1,
+          medium: 0.7,
+          high: 0.4,
+        },
+        soilClay: {
+          low: 1.1,
+          medium: 0.7,
+          high: 0.3,
+        }
+      }
+    }
+    const input = {
+      crop: corn,
+      numCrops: 30,
+      sun: "high",
+      wind: "medium",
+      soilClay: "low"
+    }
+    expect(getYieldForCrop(input)).toBe(103.95);
+  })
+});

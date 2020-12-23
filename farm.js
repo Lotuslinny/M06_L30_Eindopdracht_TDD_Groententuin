@@ -32,7 +32,40 @@ const getYieldForPlant = (object) => {
   }
 };
 
-const getYieldForCrop = (object) => (object.crop.yield * object.numCrops);
+const getYieldForCrop = (object) => {
+  let soilClayFactor = 1;
+  let sunFactor = 1;
+  let windFactor = 1;
+  if (typeof object.crop != "undefined") {
+    let o = object.crop.factors;
+    if (typeof o !== 'undefined') {
+      let o = object.crop.factors;
+      for (var prop in o.sun) {
+        if (prop == object.sun) {
+          sunFactor = o.sun[prop];
+        }
+      }
+    };
+    if (typeof o !== 'undefined') {
+      for (var prop in o.wind) {
+        if (prop == object.wind) {
+          windFactor = o.wind[prop];
+        }
+      }
+    };
+    if (typeof o !== 'undefined')
+      for (var prop in o.soilClay) {
+        if (prop == object.soilClay) {
+          soilClayFactor = o.soilClay[prop];
+        }
+      }
+    return (object.crop.yield * object.numCrops) * sunFactor * windFactor * soilClayFactor;
+  }
+  else {
+    return object.crop.yield * object.numCrops;
+  }
+};
+
 
 const getTotalYield = (object) => {
   let totalYield = 0;
