@@ -5,7 +5,6 @@ const getYieldForPlant = (object) => {
   if (typeof object.crop != "undefined") {
     let o = object.crop.factors;
     if (typeof o.sun !== 'undefined') {
-      let o = object.crop.factors;
       for (var prop in o.sun) {
         if (prop == object.sun) {
           sunFactor = o.sun[prop];
@@ -39,7 +38,6 @@ const getYieldForCrop = (object) => {
   if (typeof object.crop != "undefined") {
     let o = object.crop.factors;
     if (typeof o !== 'undefined') {
-      let o = object.crop.factors;
       for (var prop in o.sun) {
         if (prop == object.sun) {
           sunFactor = o.sun[prop];
@@ -79,7 +77,46 @@ const getCostsForCrop = (object) => (object.crop.costs * object.numCrops);
 
 const getRevenueForCrop = (object) => (object.crop.revenue * object.numCrops);
 
-const getProfitForCrop = (object) => (object.crop.profit * object.numCrops);
+// Here I started to Not use decimals anymore. 
+//Read:http://adripofjavascript.com/blog/drips/avoiding-problems-with-decimal-math-in-javascript.html
+const getProfitForCrop = (object) => {
+  let sunFactor = 100;
+  let windFactor = 100;
+  let soilClayFactor = 100;
+  if (typeof object.crop != "undefined") {
+    let o = object.crop.factors;
+    if (typeof o !== 'undefined') {
+      for (var prop in o.sun) {
+        if (prop == object.sun) {
+          sunFactor = o.sun[prop];
+        }
+      }
+    };
+    if (typeof o !== 'undefined') {
+      for (var prop in o.wind) {
+        if (prop == object.wind) {
+          windFactor = o.wind[prop];
+        }
+      }
+    };
+    if (typeof o !== 'undefined')
+      for (var prop in o.soilClay) {
+        if (prop == object.soilClay) {
+          soilClayFactor = o.soilClay[prop];
+        }
+      }
+    return (object.crop.profit * object.numCrops * sunFactor * windFactor * soilClayFactor) / 1000000;
+  } else {
+    console.log("Happy Newyear");
+  }
+};
+
+
+
+
+
+
+
 
 const getTotalProfit = (object) => {
 
