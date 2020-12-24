@@ -60,7 +60,7 @@ const getYieldForCrop = (object) => {
     return (object.crop.yield * object.numCrops) * sunFactor * windFactor * soilClayFactor;
   }
   else {
-    return object.crop.yield;
+    return object.crop.yield * object.numCrops;
   }
 };
 
