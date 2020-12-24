@@ -32,9 +32,9 @@ const getYieldForPlant = (object) => {
 };
 
 const getYieldForCrop = (object) => {
-  let soilClayFactor = 1;
-  let sunFactor = 1;
-  let windFactor = 1;
+  let soilClayFactor = 100;
+  let sunFactor = 100;
+  let windFactor = 100;
   if (typeof object.crop != "undefined") {
     let o = object.crop.factors;
     if (typeof o !== 'undefined') {
@@ -57,7 +57,7 @@ const getYieldForCrop = (object) => {
           soilClayFactor = o.soilClay[prop];
         }
       }
-    return (object.crop.yield * object.numCrops) * sunFactor * windFactor * soilClayFactor;
+    return ((object.crop.yield * object.numCrops) * sunFactor * windFactor * soilClayFactor) / 1000000;
   }
   else {
     return object.crop.yield * object.numCrops;
@@ -77,46 +77,14 @@ const getCostsForCrop = (object) => (object.crop.costs * object.numCrops);
 
 const getRevenueForCrop = (object) => (getYieldForCrop(object) * object.crop.salePrice);
 
-// Here I started to Not use decimals anymore. 
-//Read:http://adripofjavascript.com/blog/drips/avoiding-problems-with-decimal-math-in-javascript.html
 const getProfitForCrop = (object) => {
-  let sunFactor = 100;
-  let windFactor = 100;
-  let soilClayFactor = 100;
-  if (typeof object.crop != "undefined") {
-    let o = object.crop.factors;
-    if (typeof o !== 'undefined') {
-      for (var prop in o.sun) {
-        if (prop == object.sun) {
-          sunFactor = o.sun[prop];
-        }
-      }
-    };
-    if (typeof o !== 'undefined') {
-      for (var prop in o.wind) {
-        if (prop == object.wind) {
-          windFactor = o.wind[prop];
-        }
-      }
-    };
-    if (typeof o !== 'undefined')
-      for (var prop in o.soilClay) {
-        if (prop == object.soilClay) {
-          soilClayFactor = o.soilClay[prop];
-        }
-      }
-    return ((getRevenueForCrop(object) * sunFactor * windFactor * soilClayFactor) / 1000000) - getCostsForCrop(object);
-  } else {
-    console.log("Happy Newyear");
-  }
+  return (getYieldForCrop(object) * object.crop.salePrice) - (getCostsForCrop(object));
 };
 
 const getTotalProfit = (object) => {
-
   let totalProfit = 0;
   for (i = 0; i < object.length; i++) {
     totalProfit = totalProfit + getProfitForCrop(object[i]);
-
   }
   return totalProfit;
 };
