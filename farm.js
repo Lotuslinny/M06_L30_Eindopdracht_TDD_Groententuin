@@ -60,7 +60,7 @@ const getYieldForCrop = (object) => {
     return (object.crop.yield * object.numCrops) * sunFactor * windFactor * soilClayFactor;
   }
   else {
-    return object.crop.yield * object.numCrops;
+    return object.crop.yield;
   }
 };
 
@@ -75,7 +75,7 @@ const getTotalYield = (object) => {
 
 const getCostsForCrop = (object) => (object.crop.costs * object.numCrops);
 
-const getRevenueForCrop = (object) => (object.crop.revenue * object.numCrops);
+const getRevenueForCrop = (object) => (getYieldForCrop(object) * object.crop.salePrice);
 
 // Here I started to Not use decimals anymore. 
 //Read:http://adripofjavascript.com/blog/drips/avoiding-problems-with-decimal-math-in-javascript.html
@@ -105,24 +105,18 @@ const getProfitForCrop = (object) => {
           soilClayFactor = o.soilClay[prop];
         }
       }
-    return (object.crop.profit * object.numCrops * sunFactor * windFactor * soilClayFactor) / 1000000;
+    return ((getRevenueForCrop(object) * sunFactor * windFactor * soilClayFactor) / 1000000) - getCostsForCrop(object);
   } else {
     console.log("Happy Newyear");
   }
 };
 
-
-
-
-
-
-
-
 const getTotalProfit = (object) => {
 
   let totalProfit = 0;
-  for (i = 0; i < object.crops.length; i++) {
-    totalProfit = totalProfit + (object.crops[i].crop.profit * object.crops[i].numCrops);
+  for (i = 0; i < object.length; i++) {
+    totalProfit = totalProfit + getProfitForCrop(object[i]);
+
   }
   return totalProfit;
 };

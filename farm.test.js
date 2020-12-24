@@ -93,29 +93,32 @@ describe("getRevenueForCrop", () => {
   test("Get revenue for crop, simple", () => {
     const corn = {
       name: "corn",
-      revenue: 2,
+      yield: 4,
+      salePrice: 2
     };
     const input = {
       crop: corn,
       numCrops: 24,
     };
-    expect(getRevenueForCrop(input)).toBe(48);
+    expect(getRevenueForCrop(input)).toBe(192);
   });
   test("Get revenue for crop, simple with not.toBe", () => {
     const apples = {
       name: "apples",
-      revenue: 2.5,
+      yield: 100,
+      salePrice: 2
     };
     const input = { crop: apples, numCrops: 100 };
-    expect(getRevenueForCrop(input)).not.toBe(200);
+    expect(getRevenueForCrop(input)).not.toBe(2000);
   });
   test("Get revenue for crop, simple", () => {
     const tomatoes = {
       name: "tomatoes",
-      revenue: 2,
+      yield: 15,
+      salePrice: 1
     };
     const input = { crop: tomatoes, numCrops: 75 };
-    expect(getRevenueForCrop(input)).toBe(150);
+    expect(getRevenueForCrop(input)).toBe(1125);
   });
 });
 
@@ -125,29 +128,35 @@ describe("getProfitForCrop", () => {
   test("Get profit for crop, simple", () => {
     const pumpkin = {
       name: "pumpkin",
-      profit: 4,
+      yield: 4,
+      salePrice: 5,
+      costs: 2
     };
     const input = {
       crop: pumpkin,
       numCrops: 33,
     };
-    expect(getProfitForCrop(input)).toBe(132);
+    expect(getProfitForCrop(input)).toBe(594);
   });
   test("Get profit for crop, simple with not.toBe", () => {
     const apples = {
       name: "apples",
-      profit: 1,
+      yield: 100,
+      salePrice: 2,
+      costs: 50
     };
-    const input = { crop: apples, numCrops: 100 };
-    expect(getProfitForCrop(input)).not.toBe(1000);
+    const input = { crop: apples, numCrops: 20 };
+    expect(getProfitForCrop(input)).not.toBe(300);
   });
   test("Get profit for crop, simple", () => {
     const tomatoes = {
       name: "tomatoes",
-      profit: 0.25,
+      yield: 4,
+      salePrice: 3,
+      costs: 1
     };
-    const input = { crop: tomatoes, numCrops: 320 };
-    expect(getProfitForCrop(input)).toBe(80);
+    const input = { crop: tomatoes, numCrops: 50 };
+    expect(getProfitForCrop(input)).toBe(550);
   });
 });
 
@@ -157,43 +166,55 @@ describe("getTotalProfit", () => {
   test("Calculate total profit with multiple crops", () => {
     const corn = {
       name: "corn",
-      profit: 2,
+      yield: 5,
+      salePrice: 3,
+      costs: 1
     };
     const apples = {
       name: "apples",
-      profit: 0.25,
+      yield: 150,
+      salePrice: 2,
+      costs: 50
     };
     const tomatoes = {
       name: "tomatoes",
-      profit: 0.33,
+      yield: 7,
+      salePrice: 4,
+      costs: 1
     };
     const pumpkin = {
       name: "pumpkin",
-      profit: 4,
+      yield: 17,
+      salePrice: 3,
+      costs: 2
     };
     const crops = [
       { crop: corn, numCrops: 100 },
       { crop: apples, numCrops: 80 },
       { crop: tomatoes, numCrops: 100 },
-      { crop: pumpkin, numCrops: 2 },
+      { crop: pumpkin, numCrops: 5 },
     ];
-    expect(getTotalProfit({ crops })).toBe(261);
+    expect(getTotalProfit(crops)).toBe(24345);
   });
   test("Calculate total profit with 0 amount", () => {
     const corn = {
       name: "corn",
-      profit: 1,
+      yield: 8,
+      salePrice: 3,
+      costs: 4
     };
     const crops = [{ crop: corn, numCrops: 0 }];
-    expect(getTotalProfit({ crops })).toBe(0);
+    expect(getTotalProfit(crops)).toBe(0);
   });
   test("Calculate total profit with a string", () => {
     const pumpkin = {
       name: "pumpkin",
-      profit: "2",
+      yield: 13,
+      salePrice: 5,
+      costs: 3
     };
-    const crops = [{ crop: pumpkin, numCrops: 10 }];
-    expect(getTotalProfit({ crops })).toStrictEqual(20);
+    const crops = [{ crop: pumpkin, numCrops: 10, }];
+    expect(getTotalProfit(crops)).toStrictEqual(620);
   });
 });
 
@@ -217,7 +238,7 @@ describe("getYieldForPlantWithFactors", () => {
     };
     const environmentFactors = {
       crop: corn,
-      sun: "low",
+      sun: "low"
     };
     expect(getYieldForPlant(environmentFactors)).toBe(24);
   });
