@@ -230,9 +230,9 @@ describe("getYieldForPlantWithFactors", () => {
       yield: 30,
       factors: {
         sun: {
-          low: 0.8,
-          medium: 1,
-          high: 0.5,
+          low: 80,
+          medium: 100,
+          high: 50,
         },
       },
     };
@@ -248,9 +248,9 @@ describe("getYieldForPlantWithFactors", () => {
       yield: 30,
       factors: {
         sun: {
-          low: 0.2,
-          medium: 1,
-          high: 0.5,
+          low: 20,
+          medium: 100,
+          high: 50,
         },
       },
     };
@@ -266,9 +266,9 @@ describe("getYieldForPlantWithFactors", () => {
       yield: 30,
       factors: {
         sun: {
-          low: 0.2,
-          medium: 1,
-          high: 1.5,
+          low: 20,
+          medium: 100,
+          high: 150,
         },
       },
     };
@@ -289,14 +289,14 @@ describe("getYieldForPlantWithFactors", () => {
       yield: 30,
       factors: {
         sun: {
-          low: 0.8,
-          medium: 1,
-          high: 0.5,
+          low: 80,
+          medium: 100,
+          high: 50,
         },
         wind: {
-          low: 1,
-          medium: 0.7,
-          high: 0.4,
+          low: 100,
+          medium: 70,
+          high: 40,
         },
       },
     };
@@ -314,19 +314,19 @@ describe("getYieldForPlantWithFactors", () => {
       yield: 50,
       factors: {
         sun: {
-          low: 0.8,
-          medium: 1,
-          high: 0.5,
+          low: 80,
+          medium: 100,
+          high: 50,
         },
         wind: {
-          low: 1,
-          medium: 0.7,
-          high: 0.4,
+          low: 100,
+          medium: 70,
+          high: 40,
         },
         soilClay: {
-          low: 1.1,
-          medium: 0.7,
-          high: 0.3,
+          low: 110,
+          medium: 70,
+          high: 30,
         },
       },
     };

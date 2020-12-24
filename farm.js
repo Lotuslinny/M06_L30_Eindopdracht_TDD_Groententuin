@@ -1,7 +1,7 @@
 const getYieldForPlant = (object) => {
-  let soilClayFactor = 1;
-  let sunFactor = 1;
-  let windFactor = 1;
+  let soilClayFactor = 100;
+  let sunFactor = 100;
+  let windFactor = 100;
   if (typeof object.crop != "undefined") {
     let o = object.crop.factors;
     if (typeof o.sun !== 'undefined') {
@@ -24,7 +24,7 @@ const getYieldForPlant = (object) => {
           soilClayFactor = o.soilClay[prop];
         }
       }
-    return object.crop.yield * sunFactor * windFactor * soilClayFactor;
+    return (object.crop.yield * sunFactor * windFactor * soilClayFactor) / 1000000;
   }
   else {
     return object.yield
