@@ -470,5 +470,146 @@ describe("getProfitForCropWithEnvironmentFactors", () => {
 });
 
 //test 11, total tests made 25.
-//also calculate all the environment factors when caculating
+//also calculate all the environment factors when calculating
 // the profit of multiple crops, getTotalProfit.
+describe("getTotalProfitForCropWithEnvironmentFactors", () => {
+  test("Get Total profit for crop, with environmentfactors", () => {
+    const pumpkin = {
+      name: "pumpkin",
+      yield: 25,
+      salePrice: 7,
+      costs: 2,
+      factors: {
+        sun: {
+          low: 80,
+          medium: 110,
+          high: 50,
+        },
+        wind: {
+          low: 100,
+          medium: 70,
+          high: 40,
+        },
+      }
+    };
+    const apples = {
+      name: "apples",
+      yield: 100,
+      salePrice: 2,
+      costs: 1,
+      factors: {
+        sun: {
+          low: 80,
+          medium: 110,
+          high: 150,
+        },
+        wind: {
+          low: 100,
+          medium: 70,
+          high: 40,
+        }
+      }
+    };
+    const environmentFactors = [{
+      crop: pumpkin,
+      numCrops: 40,
+      sun: "medium",
+      wind: "low"
+    },
+    {
+      crop: apples,
+      numCrops: 32,
+      sun: "high",
+      wind: "low"
+    }
+    ];
+    expect(getTotalProfit(environmentFactors)).toBe(17188);
+  });
+  test("Get Total profit for crop, with environmentfactors", () => {
+    const corn = {
+      name: "corn",
+      yield: 25,
+      salePrice: 7,
+      costs: 2,
+      factors: {
+        sun: {
+          low: 80,
+          medium: 110,
+          high: 50,
+        },
+        wind: {
+          low: 100,
+          medium: 70,
+          high: 40,
+        },
+      }
+    };
+    const apples = {
+      name: "apples",
+      yield: 100,
+      salePrice: 2,
+      costs: 1,
+      factors: {
+        sun: {
+          low: 80,
+          medium: 110,
+          high: 50,
+        },
+        wind: {
+          low: 100,
+          medium: 70,
+          high: 40,
+        },
+        soilClay: {
+          low: 100,
+          medium: 70,
+          high: 10,
+        }
+      }
+    };
+    const avocados = {
+      name: "avocados",
+      yield: 50,
+      salePrice: 4,
+      costs: 1,
+      factors: {
+        sun: {
+          low: 80,
+          medium: 100,
+          high: 50,
+        },
+        wind: {
+          low: 100,
+          medium: 70,
+          high: 40,
+        },
+        soilClay: {
+          low: 110,
+          medium: 70,
+          high: 30,
+        },
+      },
+    };
+    const environmentFactors = [{
+      crop: corn,
+      numCrops: 40,
+      sun: "medium",
+      wind: "low"
+    },
+    {
+      crop: apples,
+      numCrops: 50,
+      sun: "medium",
+      wind: "low",
+      soilClay: "high"
+    },
+    {
+      crop: avocados,
+      numCrops: 40,
+      sun: "medium",
+      wind: "low",
+      soilClay: "low"
+    }];
+    expect(getTotalProfit(environmentFactors)).toBe(17430);
+  });
+});
