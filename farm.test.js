@@ -374,7 +374,6 @@ describe("getYieldForCropWithEnvironmentFactors", () => {
       soilClay: "low"
     }
     expect(getYieldForCrop(input)).toBe(103.95);
-    //const crops = [{ crop: pumpkin, numCrops: 10, }];
   })
   test("Get yield for crop, with environmentfactors", () => {
     const pumpkin = {
